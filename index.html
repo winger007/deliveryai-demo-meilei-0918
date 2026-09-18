@@ -15,6 +15,15 @@
         } catch (e) {
           // localStorage 不可用时保持默认中文
         }
+        // 同步设置初始主题（夜间模式），避免首屏闪烁（FOUC）
+        try {
+          var theme = localStorage.getItem('theme-mode');
+          if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+          }
+        } catch (e) {
+          // localStorage 不可用时保持默认浅色
+        }
       })();
     </script>
   </head>

@@ -1,9 +1,10 @@
-import { Accessibility, Crown, Languages, LayoutDashboard, MapPin, PhoneCall, ReceiptText, Search, UserRound } from 'lucide-react'
+import { Accessibility, Crown, Languages, LayoutDashboard, MapPin, Moon, PhoneCall, ReceiptText, Search, Sun, UserRound } from 'lucide-react'
 import { useTranslation } from 'react-i18next'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
 import { tableAreas } from '@/data/menu'
 import type { ViewName } from '@/types'
+import type { ThemeMode } from '@/hooks/useDarkMode'
 
 interface TopBarProps {
   table: string
@@ -11,17 +12,20 @@ interface TopBarProps {
   serviceCount: number
   language: string
   elderly: boolean
+  themeMode: ThemeMode
   onToggleLanguage: () => void
   onToggleElderly: () => void
+  onToggleTheme: () => void
   onView: (view: ViewName) => void
   onService: () => void
   onConsole: () => void
 }
 
-export function TopBar({ table, view, serviceCount, language, elderly, onToggleLanguage, onToggleElderly, onView, onService, onConsole }: TopBarProps) {
+export function TopBar({ table, view, serviceCount, language, elderly, themeMode, onToggleLanguage, onToggleElderly, onToggleTheme, onView, onService, onConsole }: TopBarProps) {
   const { t } = useTranslation()
   const areaKey = tableAreas[table]
   const tableLabel = areaKey ? `${table} · ${t(areaKey)}` : table
+  const isDark = themeMode === 'dark'
 
   return (
     <>
@@ -56,6 +60,9 @@ export function TopBar({ table, view, serviceCount, language, elderly, onToggleL
             </DialogContent>
           </Dialog>
           <Button variant="outline" size="icon" onClick={onConsole} aria-label={t('common.aria_console')}><LayoutDashboard size={18} /></Button>
+          <Button variant="outline" size="icon" onClick={onToggleTheme} aria-label={isDark ? t('common.aria_theme_light') : t('common.aria_theme_dark')}>
+            {isDark ? <Sun size={18} className="text-amber-400" /> : <Moon size={18} />}
+          </Button>
           <Button variant="outline" size="icon" onClick={onToggleElderly} aria-label={elderly ? '切换至常规模式' : '切换至老人模式'}>
             <Accessibility size={18} className={elderly ? 'text-chili-500' : ''} />
           </Button>

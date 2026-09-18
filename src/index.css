@@ -22,6 +22,61 @@ button, input { font: inherit; }
 /* 老人模式：主要交互元素触控区域 ≥ 44px */
 .elderly button { min-height: 2.2rem; }
 
+/* 夜间模式基础：背景与文字色反转 */
+.dark { color: #f3e6d0; background: #1c1a17; }
+.dark body { background: #1c1a17; }
+.dark ::selection { background: #a9231a; color: #fff1ef; }
+
+/* —— 夜间模式：背景色覆盖 —— */
+.dark .bg-rice-50 { background-color: #1c1a17 !important; }
+.dark .bg-rice-100 { background-color: #1c1a17 !important; }
+.dark .bg-rice-200 { background-color: #2d2925 !important; }
+.dark .bg-white { background-color: #2a2724 !important; }
+.dark .bg-white\/80 { background-color: rgb(42 39 36 / 0.8) !important; }
+.dark .bg-white\/90 { background-color: rgb(42 39 36 / 0.9) !important; }
+.dark .bg-white\/95 { background-color: rgb(42 39 36 / 0.95) !important; }
+.dark .bg-white\/55 { background-color: rgb(42 39 36 / 0.7) !important; }
+/* bg-white/10、bg-white/20 用于深色区域上的半透明叠加，保持不变 */
+
+.dark .bg-chili-50 { background-color: #2a1a18 !important; }
+.dark .bg-chili-100 { background-color: #2e1a17 !important; }
+.dark .bg-amber-100 { background-color: #2a2410 !important; }
+.dark .bg-amber-100\/70 { background-color: rgb(42 36 16 / 0.7) !important; }
+
+/* —— 夜间模式：文字色覆盖 —— */
+.dark .text-charcoal-900 { color: #f3e6d0 !important; }
+.dark .text-charcoal-700 { color: #d8ccb4 !important; }
+.dark .text-charcoal-500 { color: #a8a094 !important; }
+/* text-rice-100、text-rice-200 用于深色背景上的浅色文字，保持不变 */
+/* text-white、text-white/* 用于深色背景上的白色文字，保持不变 */
+/* text-chili-* 保持不变 */
+/* text-amber-500、text-amber-400 保持不变 */
+/* text-emerald-600 保持不变 */
+
+/* —— 夜间模式：边框色覆盖 —— */
+.dark .border-charcoal-900\/5 { border-color: rgb(255 255 255 / 0.08) !important; }
+.dark .border-charcoal-900\/10 { border-color: rgb(255 255 255 / 0.12) !important; }
+.dark .border-white\/80 { border-color: rgb(255 255 255 / 0.15) !important; }
+
+/* —— 夜间模式：输入框 —— */
+.dark input[type="text"],
+.dark input[type="search"] {
+  background-color: #2a2724 !important;
+  color: #f3e6d0 !important;
+  border-color: rgb(255 255 255 / 0.08) !important;
+}
+
+/* —— 夜间模式：paper-noise 纹理弱化 —— */
+.dark .paper-noise {
+  background-image: radial-gradient(rgba(255, 200, 140, .04) .7px, transparent .7px);
+}
+
+/* 夜间模式 + 老人模式叠加：增强深色态半透明文字对比度 */
+.dark.elderly .text-rice-200\/40 { color: rgb(243 230 208 / 0.85); }
+.dark.elderly .text-rice-200\/60 { color: rgb(243 230 208 / 0.95); }
+.dark.elderly .text-white\/30 { color: rgb(255 255 255 / 0.8); }
+.dark.elderly .text-white\/40 { color: rgb(255 255 255 / 0.85); }
+
 /* 界面状态切换平滑过渡 */
 html { transition: background-color 250ms ease, color 250ms ease, font-size 250ms ease; }
 html * {

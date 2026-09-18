@@ -14,6 +14,7 @@ import { TopBar } from '@/components/TopBar'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent } from '@/components/ui/dialog'
 import { useElderlyMode } from '@/hooks/useElderlyMode'
+import { useDarkMode } from '@/hooks/useDarkMode'
 import { initialViewFromHash, useViewRoute } from '@/hooks/useViewRoute'
 import { orderReducer, initialState } from '@/state/orderReducer'
 import { products } from '@/data/menu'
@@ -50,6 +51,7 @@ export default function App() {
   const { t, i18n } = useTranslation()
   const [state, dispatch] = useReducer(orderReducer, undefined, createInitialState)
   const { enabled: elderly, toggle: toggleElderly } = useElderlyMode()
+  const { mode: themeMode, toggle: toggleTheme } = useDarkMode()
   const [serviceOpen, setServiceOpen] = useState(false)
   const [consoleOpen, setConsoleOpen] = useState(false)
   const [cartOpen, setCartOpen] = useState(false)
@@ -85,6 +87,10 @@ export default function App() {
     toggleElderly()
     dispatch({ type: 'SET_MESSAGE', message: elderly ? '已切换为常规模式' : '已切换为老人模式' })
   }
+  const handleToggleTheme = () => {
+    toggleTheme()
+    dispatch({ type: 'SET_MESSAGE', message: themeMode === 'dark' ? t('common.toast_light') : t('common.toast_dark') })
+  }
 
   if (state.view === 'home' || !state.table) {
     return <HomeView onBind={(table) => dispatch({ type: 'BIND_TABLE', table })} />
@@ -102,8 +108,10 @@ export default function App() {
         serviceCount={waitingServices}
         language={i18n.language}
         elderly={elderly}
+        themeMode={themeMode}
         onToggleLanguage={toggleLanguage}
         onToggleElderly={handleToggleElderly}
+        onToggleTheme={handleToggleTheme}
         onView={changeView}
         onService={() => setServiceOpen(true)}
         onConsole={() => setConsoleOpen(true)}
