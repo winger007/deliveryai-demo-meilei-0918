@@ -92,8 +92,8 @@ test.describe('夜间模式（Dark Mode）- E2E 验收测试', () => {
     await expect(page.locator('html')).toHaveClass(/dark/)
 
     // 打开会员卡弹窗，验证弹窗内容深色适配（dialog.tsx dark:bg-[#1c1a17]）
-    await page.getByRole('button', { name: /会员|Member/ }).first().click()
-    await expect(page.getByText('Membership & Queue')).toBeVisible()
+    await page.getByRole('button', { name: '会员与排号' }).click()
+    await expect(page.getByText('会员与排号')).toBeVisible()
     // 弹窗内容区背景应为深色
     const dialogBg = await page.evaluate(() => {
       const content = document.querySelector('[role="dialog"]')
@@ -108,8 +108,8 @@ test.describe('夜间模式（Dark Mode）- E2E 验收测试', () => {
   test('REQ-002.3 + REQ-003: 夜间模式与老人模式叠加且英文环境下 aria-label 正确', async ({ page }) => {
     await enterMenu(page)
 
-    // 切换到英文
-    await page.getByRole('button', { name: 'EN' }).click()
+    // 切换到英文（按钮 aria-label 为「切换语言」，优先于文本 "EN"）
+    await page.getByRole('button', { name: '切换语言' }).click()
 
     // 英文环境下切换按钮 aria-label 为 "Switch to dark mode"
     const darkToggle = page.getByRole('button', { name: 'Switch to dark mode' })
@@ -123,7 +123,7 @@ test.describe('夜间模式（Dark Mode）- E2E 验收测试', () => {
     // html 同时有 dark class
     await expect(page.locator('html')).toHaveClass(/dark/)
 
-    // 开启老人模式（英文环境下 aria-label 为「切换至老人模式」—— 仓库现有代码硬编码中文）
+    // 开启老人模式（英文环境下 aria-label 仍为「切换至老人模式」—— 仓库现有代码硬编码中文）
     await page.getByRole('button', { name: '切换至老人模式' }).click()
     await page.waitForTimeout(400)
 
